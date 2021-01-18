@@ -1,1 +1,25 @@
+*.iml
+
+# OS X generated file
+.DS_Store
+
+# files for the dex VM
+*.dex
+
+# built application files
+*.apk
+*.ap_
+
+.idea/*
+
+/local.properties
+/.idea/caches
+/.idea/libraries
+/.idea/modules.xml
+/.idea/workspace.xml
+/.idea/navEditor.xml
+/.idea/assetWizardSettings.xml
 /build
+/captures
+.externalNativeBuild
+.cxx
