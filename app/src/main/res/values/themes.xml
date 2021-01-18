@@ -1,0 +1,9 @@
+<resources xmlns:tools="http://schemas.android.com/tools">
+    <!-- Base application theme. -->
+    <style name="Theme.ULesson" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <item name="colorPrimary">@color/colorGrey</item>
+        <item name="colorPrimaryDark">@color/colorGrey</item>
+        <item name="colorAccent">@color/colorRed</item>
+        <item name="colorOnPrimary">@color/colorBlack</item>
+    </style>
+</resources>

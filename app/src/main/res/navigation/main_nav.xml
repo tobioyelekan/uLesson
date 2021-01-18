@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main_nav"
+    app:startDestination="@id/dashboardFragment">
+
+    <fragment
+        android:id="@+id/dashboardFragment"
+        android:name="com.example.ulesson.ui.dashboard.DashboardFragment"
+        android:label="dashboard_fragment"
+        tools:layout="@layout/dashboard_fragment">
+        <action
+            android:id="@+id/dashboardToSubjectFragment"
+            app:destination="@id/subjectFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/subjectFragment"
+        android:name="com.example.ulesson.ui.subject.SubjectFragment"
+        android:label="subject_fragment"
+        tools:layout="@layout/subject_fragment">
+        <action
+            android:id="@+id/subjectToVideoPlayerFragment"
+            app:destination="@id/videoPlayerFragment" />
+        <argument
+            android:name="subject_id"
+            app:argType="long" />
+    </fragment>
+    <fragment
+        android:id="@+id/videoPlayerFragment"
+        android:name="com.example.ulesson.ui.videoplayer.VideoPlayerFragment"
+        android:label="video_player_fragment"
+        tools:layout="@layout/video_player_fragment">
+        <argument
+            android:name="media_url"
+            app:argType="string" />
+        <argument
+            android:name="subject_id"
+            app:argType="long" />
+        <argument
+            android:name="subject_name"
+            app:argType="string" />
+        <argument
+            android:name="topicName"
+            app:argType="string" />
+    </fragment>
+</navigation>
