@@ -27,7 +27,6 @@ data class Subject(
 data class Chapter(
     val id: Long,
     val name: String,
-    val subjectId: Long? = null,
     val lessons: List<Lesson>
 )
 
