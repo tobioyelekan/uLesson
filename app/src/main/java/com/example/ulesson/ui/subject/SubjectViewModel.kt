@@ -16,7 +16,7 @@ class SubjectViewModel @ViewModelInject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    var subject: Subject? = null
+    private var subject: Subject? = null
 
     private val _navigateToVideo = MutableLiveData<Event<RecentView>>()
     val navigateToVideo: LiveData<Event<RecentView>> = _navigateToVideo
@@ -25,6 +25,10 @@ class SubjectViewModel @ViewModelInject constructor(
         liveData {
             emit(repository.getSubject(id))
         }
+
+    fun setSubject(subject: Subject) {
+        this.subject = subject
+    }
 
     fun openVideo(lesson: Lesson) {
         subject?.let { subject ->
