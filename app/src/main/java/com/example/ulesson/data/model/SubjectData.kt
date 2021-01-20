@@ -41,7 +41,6 @@ data class RecentView @JvmOverloads constructor(
      * I used @Ignore here, because its not needed in the recently watched videos,
      * therefore does not need to be persisted.
      * @property mediaUrl is used here for passing it as an extra parameter to the video player fragment
-     * in-order not to create another data class for doing the same thing
      */
     @Ignore
     val mediaUrl: String = ""

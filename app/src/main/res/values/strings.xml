@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">uLesson</string>
+    <string name="hello_name">Hello Simbi</string>
+    <string name="recently_watched_label">Recently watched topics</string>
+    <string name="empty_watched_label">You have not watched any video, click on the subject of your choice and start learning!</string>
+    <string name="lesson_title">The number line representation</string>
+    <string name="lesson_desc">Rational Numbers</string>
 </resources>

@@ -52,32 +52,3 @@ class LessonDiffCallback : DiffUtil.ItemCallback<Lesson>() {
         return oldItem == newItem
     }
 }
-
-//class LessonAdapter(
-//    private val lessons: List<Lesson>,
-//    private val viewModel: SubjectViewModel
-//) :
-//    RecyclerView.Adapter<LessonAdapter.ViewHolder>() {
-//
-//    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
-//        val view = LayoutInflater.from(parent.context).inflate(R.layout.lesson_item, parent, false)
-//        return ViewHolder(view)
-//    }
-//
-//    override fun getItemCount(): Int {
-//        return lessons.size
-//    }
-//
-//    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
-//        holder.bind(viewModel, lessons[position])
-//    }
-//
-//    class ViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
-//        fun bind(viewModel: SubjectViewModel, lesson: Lesson) {
-//            with(itemView) {
-//                img.loadImage(lesson.icon)
-//                lessonTitle.text = lesson.name
-//            }
-//        }
-//    }
-//}

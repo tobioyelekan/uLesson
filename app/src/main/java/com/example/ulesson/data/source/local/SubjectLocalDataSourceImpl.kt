@@ -1,6 +1,5 @@
 package com.example.ulesson.data.source.local
 
-import androidx.lifecycle.LiveData
 import com.example.ulesson.data.helper.Resource
 import com.example.ulesson.data.model.RecentView
 import com.example.ulesson.data.model.Subject
