@@ -45,7 +45,7 @@ I made this decision inorder not to wait for the video to be completed before sa
 
 Also the recent watched videos is saved using the `subjectId` `subjectName` and `chapterName` as topicName, so for example if I watched Standard deviation lesson
 under a chapter called statistics in Mathemeatics subject, what would be saved in the `recentview` table is statistics as the `topicName`, Mathematics as the `subjectName`
-and it uses the `subjectId` as the unique key so that when you watch another lesson in another chapter it updates the topic name as the most recently watched topic in that subject.
+and it uses the `subjectId` as the unique key so that when you watch another lesson in another chapter of the same subject it updates the topic name as the most recently watched topic in that subject.
 
 In other words, the recently wacthed videos is saved on a chapter level not an individual lesson.(Not sure if this is the best approach to that)
 
