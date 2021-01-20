@@ -28,7 +28,7 @@ Also if the user clicks on view less, I pass 2 to the query.
 ## UI Structure
 * DashboardFragment:
 This fragment displays the list of subjects and recently watched videos, using room as source of data,
-its worth noting that I had to use pngs for the topics image inorder to have a beautiful and closer look to the UI, I would normally use the image response 
+its worth noting that I had to use pngs for the topics image inorder to have a beautiful and closer look to the UI, I would normally use a image url
 gotten from the endpoint.
 
 * SubjectFragment: 
