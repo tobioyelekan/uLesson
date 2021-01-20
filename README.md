@@ -59,6 +59,7 @@ layer over SQLite to allow for more robust database access while harnessing the 
 * [Coroutine](https://developer.android.com/kotlin/coroutines): recommended way to make execute asynchronous code, main safe!, and eliminates call back hell code
 * [Timber](): used for logging
 * [Glide](https://github.com/bumptech/glide): a library for loading images
+* [Exoplayer](https://exoplayer.dev/) : library used for playing videos
 
 ## Clone project
 Use Android Studio 4.0 and above
