@@ -15,6 +15,7 @@ It consists of a single activity and 3 fragments
 
 ## Database structure
 There are two tables in the database, `subject` and `recentview`
+
 `subject` is used to persist the subjects
 
 `recentview` is used to persist the recently watched topics
