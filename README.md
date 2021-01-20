@@ -14,8 +14,8 @@ The app uses the dependency inversion rule to ensure separation of concerns and 
 It consists of a single activity and 3 fragments
 
 ## Database structure
-There are two tables in the database `subject` and `recentview`
-subject is used to persist the subjects
+There are two tables in the database, `subject` and `recentview`
+`subject` is used to persist the subjects
 
 `recentview` is used to persist the recently watched topics
 accoridng to the UI, its worth noting that I had to use LIMIT to limit the records on table depending on whether the user clicks view all or less.
