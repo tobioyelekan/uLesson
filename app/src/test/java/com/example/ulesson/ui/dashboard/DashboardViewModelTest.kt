@@ -34,7 +34,7 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun `assert that call to network passes`() {
+    fun `assert that call to network passes test`() {
         mainCoroutine.runBlockingTest {
             viewModel.getSubjects()
 
