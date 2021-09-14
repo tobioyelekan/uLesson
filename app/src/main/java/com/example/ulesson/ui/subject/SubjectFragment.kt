@@ -24,8 +24,7 @@ class SubjectFragment : BaseFragment(R.layout.subject_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter =
-            ChapterAdapter(viewModel)
+        adapter = ChapterAdapter(viewModel)
         chapterList.adapter = adapter
 
         back.setOnClickListener {
