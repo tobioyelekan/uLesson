@@ -37,6 +37,7 @@ class SubjectFragment : BaseFragment(R.layout.subject_fragment) {
     private fun setupObservers() {
         viewModel.getSubject(args.subjectId).observe(viewLifecycleOwner, Observer {
             loading.visibility = View.GONE
+
             it.data?.let { subject ->
                 viewModel.setSubject(subject)
                 subjectTitle.text = subject.name
