@@ -17,14 +17,14 @@ class SubjectRemoteDataSourceImpl @Inject constructor(
             return@withContext try {
                 val response = subjectService.getSubjectData()
                 if (response.isSuccessful) {
-                    Resource.success(response.body()!!)
+                    Resource.Success(response.body()!!)
                 } else {
-                    Resource.error(response.errorBody().toString(), null)
+                    Resource.Error(response.errorBody().toString(), null)
                 }
             } catch (e: Exception) {
-                Resource.error(e.message!!, null)
+                Resource.Error(e.message!!, null)
             } catch (IO: Exception) {
-                Resource.error("No internet access", null)
+                Resource.Error("No internet access", null)
             }
         }
 }

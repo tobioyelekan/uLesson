@@ -15,6 +15,7 @@ import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.*
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -46,8 +47,8 @@ class SubjectViewModelTest {
         mainCoroutineRule.runBlockingTest {
             val subjectIdToOpen = TestObjectUtil.subjects[0].id
             val subject = viewModel.getSubject(subjectIdToOpen).getOrAwaitValue()
-            assertThat(subject.status, `is`(Resource.Status.SUCCESS))
-            assertThat(subject.data, `is`(TestObjectUtil.subjects[0]))
+            assertTrue(subject is Resource.Success)
+            assertThat((subject as Resource.Success).data, `is`(TestObjectUtil.subjects[0]))
         }
 
     @Test

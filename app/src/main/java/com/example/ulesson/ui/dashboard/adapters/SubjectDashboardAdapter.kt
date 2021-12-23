@@ -75,6 +75,14 @@ class SubjectAdapter(private val viewModel: DashboardViewModel) :
                             R.drawable.ic_chem_sign
                         )
                     }
+                    else ->{
+                        setContent(
+                            itemView,
+                            R.color.colorPurpleDark,
+                            R.drawable.ic_english_bg,
+                            R.drawable.ic_phy_sign
+                        )
+                    }
                 }
 
                 setOnClickListener {

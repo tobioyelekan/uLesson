@@ -8,6 +8,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.navigation.fragment.navArgs
 import com.example.ulesson.R
 import com.example.ulesson.data.helper.EventObserver
+import com.example.ulesson.data.helper.Resource
 import com.example.ulesson.ui.BaseFragment
 import com.example.ulesson.ui.subject.adapters.ChapterAdapter
 import dagger.hilt.android.AndroidEntryPoint
@@ -38,10 +39,12 @@ class SubjectFragment : BaseFragment(R.layout.subject_fragment) {
     private fun setupObservers() {
         viewModel.getSubject(args.subjectId).observe(viewLifecycleOwner, Observer {
             loading.visibility = View.GONE
-            it.data?.let { subject ->
-                viewModel.setSubject(subject)
-                subjectTitle.text = subject.name
-                adapter.submitList(subject.chapters)
+            if (it is Resource.Success) {
+                it.data?.let { subject ->
+                    viewModel.setSubject(subject)
+                    subjectTitle.text = subject.name
+                    adapter.submitList(subject.chapters)
+                }
             }
         })
 

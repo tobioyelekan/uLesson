@@ -11,11 +11,11 @@ import com.example.ulesson.data.source.remote.SubjectRemoteDataSource
 import com.example.ulesson.data.source.repo.DefaultRepository
 import com.example.ulesson.util.*
 import com.nhaarman.mockitokotlin2.argumentCaptor
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -41,29 +41,29 @@ class RepositoryTest {
 
     @Before
     fun setup() {
-        repository = DefaultRepository(remoteDataSource, localDataSource, Dispatchers.Main)
+        repository = DefaultRepository(remoteDataSource, localDataSource)
     }
 
     @Test
     fun `assert that call to network returns success`() = mainCoroutineRule.runBlockingTest {
 
-        `when`(remoteDataSource.getSubjectData()).thenReturn(Resource.success(TestObjectUtil.subjectDataResponse))
+        `when`(remoteDataSource.getSubjectData()).thenReturn(Resource.Success(TestObjectUtil.subjectDataResponse))
 
-        val response = repository.fetchSubjects().getOrAwaitValue()
+        val response = repository.fetchSubjects()
 
         verify(remoteDataSource).getSubjectData()
-        assertThat(response, `is`(Resource.success(Unit)))
+        assertTrue(response is Resource.Success)
     }
 
     @Test
     fun `assert that when call to network fails it returns the appropriate error message`() =
         mainCoroutineRule.runBlockingTest {
-            `when`(remoteDataSource.getSubjectData()).thenReturn(Resource.error("error occurred"))
+            `when`(remoteDataSource.getSubjectData()).thenReturn(Resource.Error("error occurred"))
 
-            val response = repository.fetchSubjects().getOrAwaitValue()
+            val response = repository.fetchSubjects()
 
             verify(remoteDataSource).getSubjectData()
-            assertThat(response, `is`(Resource.error("error occurred")))
+            assertTrue(response is Resource.Error)
             verifyNoMoreInteractions(remoteDataSource, localDataSource)
         }
 
@@ -71,12 +71,12 @@ class RepositoryTest {
     @Test
     fun `assert that when call to network is successful it should also persist the data gotten`() =
         mainCoroutineRule.runBlockingTest {
-            `when`(remoteDataSource.getSubjectData()).thenReturn(Resource.success(TestObjectUtil.subjectDataResponse))
+            `when`(remoteDataSource.getSubjectData()).thenReturn(Resource.Success(TestObjectUtil.subjectDataResponse))
             `when`(localDataSource.saveSubjects(TestObjectUtil.subjects)).thenReturn(Unit)
 
-            val response = repository.fetchSubjects().getOrAwaitValue()
+            val response = repository.fetchSubjects()
 
-            assertThat(response, `is`(Resource.success(Unit)))
+            assertTrue(response is Resource.Success)
             verify(remoteDataSource).getSubjectData()
             verify(localDataSource).saveSubjects(TestObjectUtil.subjects)
         }
@@ -132,11 +132,11 @@ class RepositoryTest {
         mainCoroutineRule.runBlockingTest {
             val data = TestObjectUtil.subjects[0]
 
-            `when`(localDataSource.getSubject(3L)).thenReturn(Resource.success(data))
+            `when`(localDataSource.getSubject(3L)).thenReturn(Resource.Success(data))
 
             val response = repository.getSubject(3L)
             verify(localDataSource).getSubject(3L)
-            assertThat(response, `is`(Resource.success(data)))
+            assertTrue(response is Resource.Success)
         }
 
 }

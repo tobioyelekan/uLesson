@@ -2,9 +2,7 @@ package com.example.ulesson.data
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.liveData
 import com.example.ulesson.data.helper.Resource
-import com.example.ulesson.data.helper.Resource.Status
 import com.example.ulesson.data.model.RecentView
 import com.example.ulesson.data.model.Subject
 import com.example.ulesson.data.source.repo.Repository
@@ -25,27 +23,24 @@ class FakeRepository : Repository {
     }
 
     //network call to fetch subjects from the server
-    override fun fetchSubjects(): LiveData<Resource<Unit>> {
-        return liveData {
-            val response = if (shouldReturnError) {
-                Resource.error("error occurred", null)
-            } else {
-                Resource.success(TestObjectUtil.subjects)
-            }
+    override suspend fun fetchSubjects(): Resource<Unit> {
+        val response = if (shouldReturnError) {
+            Resource.Error("error occurred", null)
+        } else {
+            Resource.Success(TestObjectUtil.subjects)
+        }
 
-            when (response.status) {
-                Status.SUCCESS -> {
-                    response.data?.let {
-                        saveSubjects(it)
-                    }
-                    emit(Resource.success(Unit))
+        return when (response) {
+            is Resource.Success -> {
+                response.data?.let {
+                    saveSubjects(it)
                 }
-                Status.ERROR -> {
-                    emit(Resource.error(response.message!!, null))
-                }
-                else -> {
-                }
+                Resource.Success(Unit)
             }
+            is Resource.Error -> {
+                Resource.Error(response.message, null)
+            }
+            else -> Resource.Loading
         }
     }
 
@@ -70,7 +65,7 @@ class FakeRepository : Repository {
 
     override suspend fun getSubject(id: Long): Resource<Subject> {
         val subject = subjects.find { it.id == id }
-        return Resource.success(subject!!)
+        return Resource.Success(subject!!)
     }
 
     fun saveAllRecentView(list: List<RecentView>) {
