@@ -55,7 +55,7 @@ class LocalDataSourceTest {
     fun saveSubjectsAndRetrieveSingleSubject() = runBlocking {
         val subject = TestObjectUtil.subjects[0]
         val response = localDataSource.getSubject(subject.id)
-        assertThat(response, `is`(Resource.success(subject)))
+        assertThat(response, `is`(Resource.Success(subject)))
     }
 
     @Test

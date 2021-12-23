@@ -28,7 +28,7 @@ class SubjectLocalDataSourceImpl @Inject constructor(
 
     override suspend fun getSubject(id: Long) = withContext(ioDispatcher) {
         val subject = subjectDao.getSubject(id)
-        return@withContext Resource.success(subject)
+        return@withContext Resource.Success(subject)
     }
 
     override fun observeRecentViews(limit: Int) = recentViewDao.getRecentViews(limit)

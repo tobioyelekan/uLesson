@@ -32,7 +32,6 @@ class DashboardFragment : BaseFragment(R.layout.dashboard_fragment) {
         recentViewList.adapter = recentViewAdapter
 
         subjectList.layoutManager = GridLayoutManager(requireContext(), 2)
-        viewModel.getSubjects()
 
         setupObservers()
         setUpToggleViewClickListener()
@@ -47,14 +46,14 @@ class DashboardFragment : BaseFragment(R.layout.dashboard_fragment) {
 
     private fun setupObservers() {
         viewModel.fetchingSubject.observe(viewLifecycleOwner, Observer {
-            when (it.status) {
-                Status.LOADING -> {
+            when (it) {
+                is Loading -> {
                     loading.visibility = View.VISIBLE
                 }
-                Status.SUCCESS -> {
+                is Success -> {
                     loading.visibility = View.GONE
                 }
-                Status.ERROR -> {
+                is Error -> {
                     loading.visibility = View.GONE
                     onError(it.message)
                 }

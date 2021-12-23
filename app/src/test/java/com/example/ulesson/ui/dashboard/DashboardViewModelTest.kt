@@ -7,10 +7,10 @@ import com.example.ulesson.util.MainCoroutineRule
 import com.example.ulesson.util.TestObjectUtil
 import com.example.ulesson.util.getOrAwaitValue
 import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.test.runBlockingTest
 import org.hamcrest.CoreMatchers.`is`
 import org.hamcrest.CoreMatchers.notNullValue
 import org.hamcrest.MatcherAssert.assertThat
+import org.junit.Assert.assertTrue
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -34,37 +34,33 @@ class DashboardViewModelTest {
     }
 
     @Test
-    fun `assert that call to network passes test`() {
-        mainCoroutine.runBlockingTest {
-            viewModel.getSubjects()
+    fun `assert that subjects are loading before success`() {
+        mainCoroutine.pauseDispatcher()
 
-            val status = viewModel.fetchingSubject.getOrAwaitValue()
-            assertThat(status, `is`(Resource.success(Unit)))
-        }
+        viewModel.fetchSubjects()
+
+        assertTrue(viewModel.fetchingSubject.getOrAwaitValue() is Resource.Loading)
+
+        mainCoroutine.resumeDispatcher()
+
+        assertTrue(viewModel.fetchingSubject.getOrAwaitValue() is Resource.Success)
+    }
+
+    @Test
+    fun `assert that call to network passes test`() {
+        viewModel.fetchSubjects()
+
+        val status = viewModel.fetchingSubject.getOrAwaitValue()
+        assertTrue(status is Resource.Success)
     }
 
     @Test
     fun `assert that error response is received when error occurs calling network`() {
-        mainCoroutine.runBlockingTest {
-            repository.setShouldReturnError(true)
-            viewModel.getSubjects()
+        repository.setShouldReturnError(true)
+        viewModel.fetchSubjects()
 
-            val status = viewModel.fetchingSubject.getOrAwaitValue()
-            assertThat(status, `is`(Resource.error("error occurred")))
-        }
-    }
-
-    @Test
-    fun `assert that call to network saves subject data`() {
-        mainCoroutine.runBlockingTest {
-            viewModel.getSubjects()
-
-            val status = viewModel.fetchingSubject.getOrAwaitValue()
-            assertThat(status, `is`(Resource.success(Unit)))
-
-            val subjects = viewModel.subjects.getOrAwaitValue()
-            assertThat(subjects, `is`(TestObjectUtil.subjects))
-        }
+        val status = viewModel.fetchingSubject.getOrAwaitValue()
+        assertTrue(status is Resource.Error)
     }
 
     @Test

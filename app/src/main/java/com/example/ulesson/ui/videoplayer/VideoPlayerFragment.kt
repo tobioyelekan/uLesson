@@ -77,6 +77,17 @@ class VideoPlayerFragment : BaseFragment(R.layout.video_player_fragment), Player
         }
     }
 
+    override fun onPlayerError(error: ExoPlaybackException?) {
+        super.onPlayerError(error)
+
+        error?.let {
+            showToast(
+                it.message ?: it.localizedMessage
+                ?: "something went wrong trying to play this video"
+            )
+        }
+    }
+
     override fun onStart() {
         super.onStart()
         if (Util.SDK_INT >= 24) {

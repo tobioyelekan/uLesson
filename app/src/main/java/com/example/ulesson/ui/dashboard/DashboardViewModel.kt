@@ -1,18 +1,30 @@
 package com.example.ulesson.ui.dashboard
 
 import androidx.hilt.lifecycle.ViewModelInject
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.switchMap
+import androidx.lifecycle.*
 import com.example.ulesson.data.helper.Event
+import com.example.ulesson.data.helper.Resource
 import com.example.ulesson.data.source.repo.Repository
+import kotlinx.coroutines.launch
 
 class DashboardViewModel @ViewModelInject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
-    private val _subjects = MutableLiveData<Unit>()
+    private val _fetchingSubject = MutableLiveData<Resource<Unit>>()
+    val fetchingSubject: LiveData<Resource<Unit>> = _fetchingSubject
+
+    init {
+        fetchSubjects()
+    }
+
+    fun fetchSubjects() {
+        _fetchingSubject.value = Resource.Loading
+
+        viewModelScope.launch {
+            _fetchingSubject.value = repository.fetchSubjects()
+        }
+    }
 
     private val _openSubjectId = MutableLiveData<Event<Long>>()
     val openSubjectId: LiveData<Event<Long>> = _openSubjectId
@@ -25,10 +37,6 @@ class DashboardViewModel @ViewModelInject constructor(
             "VIEW ALL" -> repository.getRecentViews(2)
             else -> repository.getRecentViews(1000)
         }
-    }
-
-    fun getSubjects() {
-        _subjects.value = Unit
     }
 
     fun toggleButton(text: String) {
@@ -44,10 +52,6 @@ class DashboardViewModel @ViewModelInject constructor(
 
     fun openSubject(subjectId: Long) {
         _openSubjectId.value = Event(subjectId)
-    }
-
-    val fetchingSubject = _subjects.switchMap {
-        repository.fetchSubjects()
     }
 
     val subjects = repository.getSubjects()

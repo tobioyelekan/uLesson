@@ -1,40 +1,29 @@
 package com.example.ulesson.data.source.repo
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.liveData
 import com.example.ulesson.data.helper.Resource
 import com.example.ulesson.data.helper.Resource.*
 import com.example.ulesson.data.model.RecentView
 import com.example.ulesson.data.model.Subject
 import com.example.ulesson.data.source.local.SubjectLocalDataSource
 import com.example.ulesson.data.source.remote.SubjectRemoteDataSource
-import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 
 class DefaultRepository(
     private val remoteDataSource: SubjectRemoteDataSource,
-    private val localDataSource: SubjectLocalDataSource,
-    private val ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    private val localDataSource: SubjectLocalDataSource
 ) : Repository {
 
-    override fun fetchSubjects(): LiveData<Resource<Unit>> =
-        liveData(ioDispatcher) {
-            val response = remoteDataSource.getSubjectData()
-            when (response.status) {
-                Status.LOADING -> {
-                    emit(Resource.loading((Unit)))
+    override suspend fun fetchSubjects(): Resource<Unit> {
+        return when (val response = remoteDataSource.getSubjectData()) {
+            is Success -> {
+                response.data?.let { subjectData ->
+                    localDataSource.saveSubjects(subjectData.data.subjects)
                 }
-                Status.SUCCESS -> {
-                    response.data?.let { subjectData ->
-                        localDataSource.saveSubjects(subjectData.data.subjects)
-                    }
-                    emit(Resource.success(Unit))
-                }
-                Status.ERROR -> {
-                    emit(Resource.error(response.message!!, null))
-                }
+                Success(Unit)
             }
+            is Error -> Error(response.message)
+            is Loading -> Loading
         }
+    }
 
     override fun getSubjects() = localDataSource.observeSubjects()
 

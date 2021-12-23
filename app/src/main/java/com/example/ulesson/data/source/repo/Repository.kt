@@ -7,7 +7,7 @@ import com.example.ulesson.data.model.Subject
 
 interface Repository {
 
-    fun fetchSubjects(): LiveData<Resource<Unit>>
+    suspend fun fetchSubjects(): Resource<Unit>
 
     fun getSubjects(): LiveData<List<Subject>>
 
