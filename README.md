@@ -22,8 +22,7 @@ There are two tables in the database, `subject` and `recentview`
 
 ## UI Structure
 * DashboardFragment:
-This fragment displays the list of subjects and recently watched videos, using room as source of data,
-its worth noting that I had to use pngs for the topics image inorder to have a beautiful and closer look to the UI, I would normally use an image url from an endpoint.
+This fragment displays the list of subjects and recently watched videos, using room as source of data.
 
 * SubjectFragment: 
 This fragment displays all the lessons of a particular subject clicked from the previous screen.
@@ -41,7 +40,7 @@ Also the recent watched videos is saved using the `subjectId` `subjectName` and 
 under a chapter called statistics in Mathemeatics subject, what would be saved in the `recentview` table is statistics as the `topicName`, Mathematics as the `subjectName`
 and it uses the `subjectId` as the unique key so that when you watch another lesson in another chapter of the same subject it updates the topic name as the most recently watched topic in that subject.
 
-In other words, the recently wacthed videos is saved on a chapter level not an individual lesson.(Not sure if this is the best approach to that)
+In other words, the recently watched videos is saved on a chapter level not an individual lesson.(Not sure if this is the best approach to that)
 
 ## Libraries used
 * [Room](https://developer.android.com/topic/libraries/architecture/room): The Room persistence library provides an abstraction 
@@ -55,6 +54,8 @@ layer over SQLite to allow for more robust database access while harnessing the 
 * [Timber](): used for logging
 * [Glide](https://github.com/bumptech/glide): a library for loading images
 * [Exoplayer](https://exoplayer.dev/) : library used for playing videos
+
+Figma link: https://www.figma.com/file/rfaVkZMsmdq69sioOSuvfN/Android-Interview-App?node-id=0%3A1
 
 ## Clone project
 Use Android Studio 4.0 and above
