@@ -19,17 +19,11 @@ There are two tables in the database, `subject` and `recentview`
 `subject` is used to persist the subjects
 
 `recentview` is used to persist the recently watched topics
-accoridng to the UI, its worth noting that I had to use LIMIT to limit the records on table depending on whether the user clicks view all or less.
-
-If the user clicks on view all I pass a 1000 number to the dao query to retrieve all the records, I'm not sure if thats a good idea, 
-like what if we had a 1000 records, I think it can be done better like passing a dynamic query or something.
-Also if the user clicks on view less, I pass 2 to the query.
 
 ## UI Structure
 * DashboardFragment:
 This fragment displays the list of subjects and recently watched videos, using room as source of data,
-its worth noting that I had to use pngs for the topics image inorder to have a beautiful and closer look to the UI, I would normally use a image url
-gotten from the endpoint.
+its worth noting that I had to use pngs for the topics image inorder to have a beautiful and closer look to the UI, I would normally use an image url from an endpoint.
 
 * SubjectFragment: 
 This fragment displays all the lessons of a particular subject clicked from the previous screen.
@@ -67,7 +61,6 @@ Use Android Studio 4.0 and above
 
 ## ToDo
 * UI testing with espresso
-* CI/CD
 
 ## License
 ```

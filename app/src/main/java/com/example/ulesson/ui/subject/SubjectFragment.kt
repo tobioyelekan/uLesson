@@ -25,8 +25,7 @@ class SubjectFragment : BaseFragment(R.layout.subject_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        adapter =
-            ChapterAdapter(viewModel)
+        adapter = ChapterAdapter(viewModel)
         chapterList.adapter = adapter
 
         back.setOnClickListener {
@@ -39,7 +38,7 @@ class SubjectFragment : BaseFragment(R.layout.subject_fragment) {
     private fun setupObservers() {
         viewModel.getSubject(args.subjectId).observe(viewLifecycleOwner, Observer {
             loading.visibility = View.GONE
-            if (it is Resource.Success) {
+              if (it is Resource.Success) {
                 it.data?.let { subject ->
                     viewModel.setSubject(subject)
                     subjectTitle.text = subject.name
