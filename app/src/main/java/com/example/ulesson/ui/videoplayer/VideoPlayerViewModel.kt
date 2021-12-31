@@ -1,13 +1,15 @@
 package com.example.ulesson.ui.videoplayer
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.ulesson.data.model.RecentView
 import com.example.ulesson.data.source.repo.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class VideoPlayerViewModel @ViewModelInject constructor(
+@HiltViewModel
+class VideoPlayerViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 

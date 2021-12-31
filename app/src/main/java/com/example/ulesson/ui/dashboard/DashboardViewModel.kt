@@ -1,13 +1,15 @@
 package com.example.ulesson.ui.dashboard
 
-import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.*
 import com.example.ulesson.data.helper.Event
 import com.example.ulesson.data.helper.Resource
 import com.example.ulesson.data.source.repo.Repository
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class DashboardViewModel @ViewModelInject constructor(
+@HiltViewModel
+class DashboardViewModel @Inject constructor(
     private val repository: Repository
 ) : ViewModel() {
 
